@@ -1,0 +1,9 @@
+---
+ - hosts: all
+   gather_facts: no
+   tasks:
+   - debug:
+      msg:
+      - "The value of x is {{x}}"
+      - "The value of y is {{y}}"
+      - "The value of z is {{x|int + y|int}}"

@@ -1,0 +1,18 @@
+---
+ - hosts: all
+   gather_facts: no
+   become: yes
+   tasks:
+     - name: Installing httpd
+       yum:
+        name: httpd
+        state: present
+       notify:
+        - start httpd
+   handlers:
+     - name: start httpd
+       service: 
+        name: httpd
+        state: started       
+  
+

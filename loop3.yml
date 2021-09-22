@@ -1,0 +1,11 @@
+---
+  - name: check up time
+    hosts: all
+    become: yes
+    gather_facts: false
+    tasks:
+    - shell: "uptime|awk '{print $3}'"
+      register: up_time
+      delegate_to: localhost
+    - debug: var=up_time.stdout  
+    

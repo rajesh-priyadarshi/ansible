@@ -1,0 +1,13 @@
+---
+ - hosts: all
+   become: yes
+   gather_facts: no
+   vars:
+    x: 30
+    y: 60
+    larger: "{{x  if ( x > y ) else y }}"
+   tasks:
+   - debug:
+      msg:
+       - "Larger number of  {{x}} and {{y}} is {{larger}}"
+  

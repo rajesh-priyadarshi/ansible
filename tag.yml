@@ -1,0 +1,27 @@
+--- 
+ - hosts: all
+   gather_facts: no
+   become: yes
+   tasks:
+   - debug:
+       msg: 
+        - "this is first task"
+     tags: first 
+     tags: never
+   - debug:
+       msg:         
+        - "this is second task"
+     tags: second  
+   - debug:
+       msg:      
+        - "this is third task"
+     tags: third  
+   - debug:
+       msg:      
+        - "this is fourth task"
+     tags: fourth  
+     tags: never
+   - debug:
+       msg:      
+        - "this is fifth task"
+     tags: fifth 

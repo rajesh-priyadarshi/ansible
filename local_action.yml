@@ -1,0 +1,12 @@
+---
+ - hosts: all
+   gather_facts: true
+   become: yes
+   tasks:
+   - name: This will create a local file /tmp/local_file.ini.
+     local_action: command touch /tmp/"{{ ansible_hostname }}"_local_file.ini
+   - name: copy file 
+     copy:
+       src: /tmp/{{ ansible_hostname }}_local_file.ini
+       dest: /tmp
+       remote_src: yes

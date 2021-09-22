@@ -1,0 +1,11 @@
+---
+  - name: sample play to launch EC2 instance
+    hosts: localhost
+    connection: local
+    gather_facts: false
+    tasks: 
+      - name: simple tasks to lanuch ec2 instance with default values
+        ec2: 
+          instance_type: t2.micro
+          image: ami-0a23ccb2cdd9286bb
+          region: ap-south-1

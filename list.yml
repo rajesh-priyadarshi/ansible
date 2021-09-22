@@ -1,0 +1,10 @@
+---
+ - hosts: all
+   gather_facts: all
+   vars:
+    pkg: ['git','httpd','nano','vim']
+    web_servers: {'Linux': 'httpd', 'ubuntu': 'apache2'}
+   tasks:
+   - debug: 
+      var=pkg[0]	
+      var=web_servers['Linux']

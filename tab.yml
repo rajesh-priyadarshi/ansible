@@ -1,0 +1,12 @@
+--- 
+ #- hosts: all
+   #gather_Facts: no
+   #become: yes
+   #tasks:
+   # - debug:
+   #    msg: 
+   #     - "this is first task"
+   #     - "this is second task"
+   #     - "this is third task"
+   #     - "this is fourth task"
+   #     - "this is fifth task"

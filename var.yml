@@ -1,0 +1,14 @@
+---
+ - hosts: localhost 
+   vars:
+    x: 5
+    y: 6.5
+    name: "rajesh"
+    my_bool: false	
+   tasks:
+   - debug:
+      msg:
+       - "the value of x is {{x}} and type is {{x|type_debug}}"
+       - "the value of y is {{y}} and type is {{y|type_debug}}"
+       - "my name is {{name}} and type is {{name|type_debug}}"
+       - "the value of my_bool is {{my_bool}} and type is {{my_bool|type_debug}}"

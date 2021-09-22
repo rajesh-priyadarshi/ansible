@@ -1,0 +1,7 @@
+---
+ - hosts: all
+   gather_facts: no
+   tasks:
+   - debug: 
+      msg: "host name is {{inventory_hostname}}"
+      verbosity: 2 

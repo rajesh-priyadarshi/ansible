@@ -1,0 +1,54 @@
+---
+ - name: install and configure tomcat
+   hosts: 3.6.92.50
+   gather_facts: false
+   become: yes
+   vars:
+     req_java: java-1.8.0-openjdk
+     set_java: jre-1.8.0-openjdk
+     req_tomcat_version: 9.0.53
+     tomcat_port: 8090
+     tomcat_url: https://downloads.apache.org/tomcat/tomcat-{{req_tomcat_version.split('.')[0]}}/v{{req_tomcat_version}}/bin/apache-tomcat-{{req_tomcat_version}}.tar.gz
+   tasks:
+     - name: updating repos
+       yum: 
+        name: "*"
+        state: latest 
+     - name: installing required java
+       yum:
+        name: "{{req_java}}"
+        state: present
+     - name: setting default java
+       alternatives:
+         name: java
+         link: /usr/bin/java
+         path: /usr/lib/jvm/{{set_java}}/bin/java
+     - name: downloading required tomcat
+       get_url:
+         #url: sudo wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.53/bin/apache-tomcat-9.0.53.tar.gz
+         url:  "{{tomcat_url}}"
+         dest: /usr/local
+     - name: check  tomcat directory exists
+       stat: path=/usr/local/apache-tomcat-9.0.53
+       register: check_tomcat_directory
+     - name: extracting downloaded tomcat
+       unarchive:
+         src: "/usr/local/apache-tomcat-{{req_tomcat_version}}.tar.gz"
+         dest: /usr/local
+         remote_src: yes
+       when: check_tomcat_directory.stat.exists== false
+     - name: check  tomcat latest directory
+       stat: path=/usr/local/latest
+       register: check_path
+     - name: Renaming tomcat directory  
+       command: mv /usr/local/apache-tomcat-{{req_tomcat_version}} /usr/local/latest
+       when: check_path.stat.exists == false
+     - name: replacing default port with required port
+       template: 
+         src: server.xml.j2
+         dest: /usr/local/latest/conf/server.xml
+     - name: Starting tomcat
+       command: nohup /usr/local/latest/bin/startup.sh &  
+
+
+

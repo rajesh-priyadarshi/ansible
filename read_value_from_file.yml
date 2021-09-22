@@ -1,0 +1,14 @@
+---
+ - hosts: all
+   vars_files: variable_value_json.json
+   tasks:
+   - debug: 
+      var=p
+      var=q
+      var=r
+   tasks:
+   - debug:  
+       msg:
+       - "value of p is {{p}}"
+       - "value of q is {{q}}"
+#       - "value of r is {{r}}"

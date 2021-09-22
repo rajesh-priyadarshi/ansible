@@ -1,0 +1,12 @@
+---
+ - name: Update hosts
+   hosts: all
+   become: yes
+   tasks:
+   - lineinfile:
+      path: /etc/hosts
+      state: present
+      line: "{{ item }}"
+     with_items:
+      - '192.168.0.108 K8_slave'
+      - '192.168.0.105 K8_master'

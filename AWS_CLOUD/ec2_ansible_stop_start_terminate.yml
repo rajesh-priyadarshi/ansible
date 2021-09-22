@@ -1,0 +1,37 @@
+---
+ - name: This play is used to stop/start ec2 instance
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   vars: 
+    ins_id: i-0faf77537548414b6
+    #register: ins_id
+   tasks:
+   - name: stop ec2 instance
+     ec2:
+       instance_ids: "{{ins_id}}"
+       state: stopped
+       region: ap-south-1
+       wait: yes
+     tags: 
+      - stop
+      - never  
+   - name: starting ec2 instance
+     ec2:
+       instance_ids: "{{ins_id}}"
+       state: running
+       region: ap-south-1   
+       wait: yes  
+     tags: 
+      - start
+      - never  
+   - name: Terminating ec2 instance
+     ec2:
+       instance_ids: "{{ins_id}}"
+       state: absent
+       region: ap-south-1   
+       wait: yes  
+     tags:
+      - terminate
+      - never  
+

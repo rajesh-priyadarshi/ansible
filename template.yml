@@ -1,0 +1,15 @@
+---
+  - hosts: all
+    gather_facts: no
+    become: yes
+    vars:
+     httpd_port: 8080
+     x: 5
+     y: 20
+     z: [1,2,3,4,5,6,7,8,9,10]
+    tasks:
+     - name: copy template file to remote location 
+       template:
+         src: patch.txt
+         dest: /tmp/patch.txt
+         

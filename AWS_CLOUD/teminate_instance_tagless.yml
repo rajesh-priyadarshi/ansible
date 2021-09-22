@@ -1,0 +1,17 @@
+---
+ - name: This play is used to get information 
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: getting information regarding  ec2 instance
+     ec2_instance_facts:
+       region: ap-south-1
+     register: ec2_info
+   - name: terminating  ec2 instance  
+     ec2:
+       region: ap-south-1
+       instance_ids: "{{item.instance_id}}"
+       state: absent
+     with_items: "{{ec2_info.instances}}"
+     when: item.tags.keys()|length == 0

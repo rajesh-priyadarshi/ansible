@@ -1,0 +1,50 @@
+---
+ - name: This play is used to get information 
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: getting information regarding  ec2 instance
+     ec2_instance_facts:
+       region: ap-south-1
+       filters: 
+        "tag:Env": UAT
+     register: ec2_info
+     tags:
+      - always
+  # - name: Displaying output
+  #   debug:
+  #     msg:
+  #      - "{{item.instance_id}}" 
+  #   with_items: "{{ec2_info.instances}}"
+   - name: stop ec2 instance
+     ec2:
+       instance_ids: "{{item.instance_id}}" 
+       state: stopped
+       region: ap-south-1
+       wait: yes
+     tags: 
+      - stop
+      - never 
+     with_items: "{{ec2_info.instances}}"      
+   - name: start ec2 instance
+     ec2:
+       instance_ids: "{{item.instance_id}}" 
+       state: running
+       region: ap-south-1
+       wait: yes
+     tags: 
+      - start
+      - never 
+     with_items: "{{ec2_info.instances}}"    
+   - name: termincate ec2 instance
+     ec2:
+       instance_ids: "{{item.instance_id}}" 
+       state: absent
+       region: ap-south-1
+       wait: yes
+     tags: 
+      - terminate
+      - never 
+     with_items: "{{ec2_info.instances}}"                 
+      

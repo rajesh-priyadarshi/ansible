@@ -1,0 +1,20 @@
+---
+ - hosts: localhost
+   become: yes
+   gather_facts: no
+   vars:
+    x: 30
+    y: 20
+   tasks:
+   - debug:
+      msg:
+       - "value of x is {{x}}"
+       - "value of y is {{y}}" 
+   - debug:
+      msg: 
+       - "{{x}} is greater than {{y}}" 
+     when: x > y
+   - debug:
+      msg:
+       - "{{y}} is greater than {{x}}"
+     when: y > x         

@@ -1,0 +1,18 @@
+---
+ - hosts: all
+   gather_facts: true
+   tasks:
+    - name: creating file discovery.csv for header
+      copy:
+        dest: ./discovery.csv
+        content: "OS distribution, Server Name, OS Type\n"
+      delegate_to: localhost
+    - name: adding info for each server in discovery.csv file
+      blockinfile:
+        path: ./discovery.csv
+        block: |
+         "{{ansible_os_family}}, {{ inventory_hostname}}, {{ansible_system}}\n"
+         "{{ansible_os_family}}, {{ inventory_hostname}}, {{ansible_system}}\n"
+         "{{ansible_os_family}}, {{ inventory_hostname}}, {{ansible_system}}\n"
+      delegate_to: localhost      
+    

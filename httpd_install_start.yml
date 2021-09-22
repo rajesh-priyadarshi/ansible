@@ -1,0 +1,30 @@
+---
+ - hosts: all
+   gather_facts: no
+   become: yes
+   tasks:
+     - name: Installing httpd
+       yum:
+        name: httpd
+        state: present
+       register: out 
+     - debug: var=out.changed  
+     - name: starting httpd
+       service:
+        name: httpd
+        state: stopped
+     - name: starting httpd
+       service:
+        name: httpd
+        state: started
+       when: out.changed == True
+     - name: status httpd
+       service:
+        name: httpd
+        state: "reloaded"  
+     - name: changing content of home page
+       template:
+        src: index_html.j2
+        dest: /usr/share/./httpd/noindex/index.html   
+       
+

@@ -1,0 +1,11 @@
+---
+ - name: Installing package with command line argument
+   hosts: all
+   gather_facts: no
+   become: yes
+   tasks:
+   - name: Installing package {{pkg}}
+     yum:
+      name: "{{pkg}}"
+      state: "{{req_state}}"
+      

@@ -1,0 +1,12 @@
+---
+ - hosts: localhost
+   gather_facts: no
+   become: yes
+   tasks:
+    - shell: "ls -lrt /home/ansadmin2/*.txt"
+      register: ls_out
+      ignore_errors: yes
+    - debug: var=ls_out
+    - shell: "ls -lrt /home/ansadmin/*.txt"
+      register: tmp_out
+    - debug: var=tmp_out 

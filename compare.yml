@@ -1,0 +1,23 @@
+---
+ - hosts: localhost
+   gather_facts: no
+   become: yes
+   vars:
+    x: 30
+    y: 20
+   tasks: 
+   - debug:
+      msg:
+       - "value of x is {{x}}"
+       - "value of y is {{y}}"
+       - "x=y is {{x==y}}"
+       - "x!=y is {{x!=y}}"
+       - "x>y is {{x>y}}"
+       - "x>=y is {{x>=y}}"
+       - "x<y is {{x<y}}"
+       - "x<=y is {{x<=y}}"
+       
+
+       
+
+       

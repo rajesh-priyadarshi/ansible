@@ -1,0 +1,17 @@
+---
+ - name: This play is used to get information 
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: getting information regarding  ec2 instance
+     ec2_instance_facts:
+       region: ap-south-1
+       filters: 
+        "tag:env": app 
+     register: out
+   - name: display information regarding ec2 instance in csv format
+     template: 
+       src: generate_csv.j2
+       dest: ec2_instance_info.csv
+       

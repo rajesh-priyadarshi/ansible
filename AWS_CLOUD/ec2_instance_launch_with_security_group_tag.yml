@@ -1,0 +1,17 @@
+---
+ - name: This play is used to create/launch ec2 instance with security group and tag
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: creating ec2 instance
+     ec2:
+       instance_type: t2.micro
+       image: ami-0a23ccb2cdd9286bb
+       count: 2
+       region: ap-south-1
+       wait: yes
+       group_id: ['sg-0afc4e659f8642cb6','sg-3cff5c42']  
+       instance_tags:
+         Name: managed_node
+         Env: UAT

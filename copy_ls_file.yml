@@ -1,0 +1,11 @@
+#!/usr/bin/ansible-playbook
+ - hosts: all
+   gather_facts: false
+   become: yes
+   tasks:
+   - name: This play will copy file 
+     copy: src=ls.txt dest=ls.txt
+   - name: This play will create demo1.txt file
+     file: path=demo1.txt state=touch owner=ansadmin
+   - name: This play will remove demo.txt file  
+     shell: rm -rf demo.txt
